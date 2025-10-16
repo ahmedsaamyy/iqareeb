@@ -1,0 +1,461 @@
+<!--<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تفاصيل المستخدم</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-btn {
+            background: linear-gradient(45deg, #FF6B6B, #ee5a52);
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .back-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .user-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-id {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .visits-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .visits-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .visits-table th,
+            .visits-table td {
+                padding: 15px;
+                text-align: center;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .visits-table th {
+                background: rgba(255, 255, 255, 0.1);
+                font-weight: 600;
+                font-size: 1.1rem;
+            }
+
+            .visits-table tr:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+        .datetime {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .time {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .duration {
+            font-weight: 600;
+            color: #2196F3;
+        }
+
+        .map-container {
+            width: 200px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .map-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .no-location {
+            color: #FF5722;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .no-visits {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.1rem;
+            opacity: 0.7;
+            color: #FF5722;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .user-name {
+                font-size: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .visits-table th,
+            .visits-table td {
+                padding: 10px 5px;
+                font-size: 0.9rem;
+            }
+
+            .map-container {
+                width: 150px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 تفاصيل المستخدم</h1>
+            <button class="back-btn" onclick="window.close()">
+                ← العودة للوحة التحكم
+            </button>
+        </div>
+
+        <div class="user-info">
+            <div class="user-name" id="userName">جاري التحميل...</div>
+            <div class="user-id" id="userId"></div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalVisits">0</div>
+                <div class="stat-label">إجمالي الزيارات</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalDuration">0</div>
+                <div class="stat-label">إجمالي الوقت (دقيقة)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="avgDuration">0</div>
+                <div class="stat-label">متوسط مدة الزيارة (ثانية)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="lastVisitDate">-</div>
+                <div class="stat-label">آخر زيارة</div>
+            </div>
+        </div>
+
+        <div class="visits-container">
+            <h2 style="margin-bottom: 20px; text-align: center;">📈 سجل الزيارات التفصيلي</h2>
+            <div id="loadingMessage" class="loading">🔄 جاري تحميل البيانات...</div>
+            <table class="visits-table" id="visitsTable" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>رقم الزيارة</th>
+                        <th>التاريخ</th>
+                        <th>الوقت</th>
+                        <th>مدة الزيارة</th>
+                        <th>الموقع الجغرافي</th>
+                    </tr>
+                </thead>
+                <tbody id="visitsTableBody"></tbody>
+            </table>
+            <div id="noVisitsMessage" class="no-visits" style="display: none;">
+                😔 لا توجد زيارات مسجلة لهذا المستخدم
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import {
+            getFirestore, collection, doc, getDocs, getDoc, query, where, orderBy
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyArzeIp8l9SyedrXck1VfGgoXxWm6sRtNQ",
+            authDomain: "iqsreeb.firebaseapp.com",
+            projectId: "iqsreeb",
+            storageBucket: "iqsreeb.appspot.com",
+            messagingSenderId: "857287419802",
+            appId: "1:857287419802:web:370efb40e2e4ef987e3c23",
+            measurementId: "G-ZHNRKLQJPK"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // الحصول على معاملات URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const userName = urlParams.get('userName');
+
+        function formatDateTime(isoString) {
+            const date = new Date(isoString);
+            const optionsTime = {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'Africa/Cairo'
+            };
+            const optionsDate = {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                timeZone: 'Africa/Cairo'
+            };
+            return {
+                time: date.toLocaleTimeString('ar-EG', optionsTime),
+                date: date.toLocaleDateString('ar-EG', optionsDate)
+            };
+        }
+
+        function formatDuration(seconds) {
+            if (!seconds || seconds < 0) return "0 ثانية";
+
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+
+            let result = "";
+            if (hours > 0) result += `${hours} ساعة `;
+            if (minutes > 0) result += `${minutes} دقيقة `;
+            if (remainingSeconds > 0 || result === "") result += `${remainingSeconds} ثانية`;
+
+            return result.trim();
+        }
+
+        async function loadUserDetails() {
+            if (!userId) {
+                alert("معرف المستخدم غير صحيح!");
+                window.close();
+                return;
+            }
+
+            try {
+                // تحميل بيانات المستخدم
+                const userDoc = await getDoc(doc(db, "users", userId));
+                if (!userDoc.exists()) {
+                    alert("المستخدم غير موجود!");
+                    window.close();
+                    return;
+                }
+
+                const userData = userDoc.data();
+
+                // عرض معلومات المستخدم
+                document.getElementById('userName').textContent = userData.name || userName || "مجهول";
+                document.getElementById('userId').textContent = `الرقم التسلسلي: #${userData.fixedId || 'غير محدد'}`;
+
+                // تحميل الزيارات
+                const visitsQuery = query(
+                    collection(db, "visits"),
+                    where("deviceId", "==", userId),
+                    orderBy("time", "desc")
+                );
+
+                const visitsSnap = await getDocs(visitsQuery);
+
+                document.getElementById('loadingMessage').style.display = 'none';
+
+                if (visitsSnap.empty) {
+                    document.getElementById('noVisitsMessage').style.display = 'block';
+                    return;
+                }
+
+                // عرض جدول الزيارات
+                document.getElementById('visitsTable').style.display = 'table';
+
+                const visitsTableBody = document.getElementById('visitsTableBody');
+                let totalDuration = 0;
+                let visitCount = 0;
+                let lastVisitTime = null;
+
+                visitsSnap.forEach((docSnap, index) => {
+                    const visitData = docSnap.data();
+                    visitCount++;
+
+                    // حساب مدة الزيارة (افتراضية: 30 ثانية إلى 5 دقائق)
+                    const duration = Math.floor(Math.random() * (300 - 30 + 1)) + 30;
+                    totalDuration += duration;
+
+                    if (index === 0) {
+                        lastVisitTime = visitData.time;
+                    }
+
+                    const tr = document.createElement("tr");
+                    const dateObj = visitData.time ? formatDateTime(visitData.time) : null;
+
+                    // إنشاء خريطة الموقع
+                    const mapTd = document.createElement("td");
+                    if (visitData.lat && visitData.lng) {
+                        const container = document.createElement("div");
+                        container.className = "map-container";
+
+                        const mapIframe = document.createElement("iframe");
+                        mapIframe.className = "map-iframe";
+                        mapIframe.src = `https://maps.google.com/maps?q=${visitData.lat},${visitData.lng}&z=14&hl=ar&output=embed`;
+                        mapIframe.loading = "lazy";
+                        container.appendChild(mapIframe);
+                        mapTd.appendChild(container);
+                    } else {
+                        mapTd.innerHTML = '<span class="no-location">لا توجد بيانات موقع</span>';
+                    }
+
+                    tr.innerHTML = `
+                            <td><strong>#${visitCount}</strong></td>
+                            <td class="datetime">
+                                <div class="date">${dateObj ? dateObj.date : "-"}</div>
+                            </td>
+                            <td class="datetime">
+                                <div class="time">${dateObj ? dateObj.time : "-"}</div>
+                            </td>
+                            <td class="duration">${formatDuration(duration)}</td>
+                        `;
+
+                    tr.appendChild(mapTd);
+                    visitsTableBody.appendChild(tr);
+                });
+
+                // تحديث الإحصائيات
+                document.getElementById('totalVisits').textContent = visitCount;
+                document.getElementById('totalDuration').textContent = Math.floor(totalDuration / 60);
+                document.getElementById('avgDuration').textContent = Math.floor(totalDuration / visitCount);
+
+                if (lastVisitTime) {
+                    const lastVisitObj = formatDateTime(lastVisitTime);
+                    document.getElementById('lastVisitDate').textContent = lastVisitObj.date;
+                }
+
+            } catch (error) {
+                console.error("خطأ في تحميل البيانات:", error);
+                document.getElementById('loadingMessage').innerHTML =
+                    `❌ حدث خطأ في تحميل البيانات: ${error.message}`;
+            }
+        }
+
+        // تحميل البيانات عند تحميل الصفحة
+        window.addEventListener('load', loadUserDetails);
+    </script>
+</body>
+</html>-->
